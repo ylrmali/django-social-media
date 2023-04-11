@@ -1,0 +1,193 @@
+body{
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+/*  header area */
+.header{
+    font-size: 25px;
+    font-weight: bolder;
+    color: whitesmoke;
+}
+
+.tabs{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+}
+
+.tabs a{
+    text-decoration: none;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.page{
+    border-bottom: 1px solid grey;
+}
+
+/* new post area */
+.new-post{
+    border-bottom: 1px solid grey;
+}
+
+.user-icon{
+    font-size: 64px;
+    max-font-size: 64px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.user-photo{
+    width: 100%;
+    max-height: 64px;
+    max-width: 64px;
+    border-radius: 100%;
+}
+
+#media{
+    display: none;
+}
+
+.textarea{
+    resize: none;
+    color: #838383;
+    font-size: 20px;
+    width: 99%;
+    text-indent: 20px;
+    background-color: transparent;
+    border: 0;
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+
+.textarea:focus{
+    outline: none;
+}
+
+#image-box{
+    position: relative;
+}
+
+.preview-image{
+    width: 100%;
+    border-radius: 15px;
+}
+
+.closeBtn{
+    background-color: transparent;
+    border: 0;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: white;
+}
+
+.shareBtn{
+    color: white;
+    background-color: dodgerblue;
+    border: 0;
+    padding: 10px 20px;
+    width: 30%;
+    border-radius:30px;
+    margin: 10px 20px;
+    float: right;
+}
+
+.shareBtn[disabled]{
+    background-color: #7091af;
+    border: 0;
+}
+
+.active{
+    display: block!important;
+}
+
+#message{
+    width: 100%;
+}
+
+.alert{
+    margin: 0;
+    padding: 20px 0;
+    text-indent: 20px;
+    color: white;
+    position: relative;
+}
+
+.success{
+    background-color: rgb(12 247 12 / 0.5);
+}
+
+.error{
+    background-color: rgba(211, 22, 22, 0.5);
+}
+
+.msg-btn{
+    position: absolute;
+    right: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+/* post section */
+.post{
+    border-bottom: 0.5px solid rgba(128, 128, 128, 0.69);
+}
+
+.user_photo{
+    width: 100%;
+    max-width: 42px;
+    max-height: 42px;
+    border-radius: 100%;
+}
+
+.m-412{
+    margin: 4px 12px ;
+}
+
+.m-812{
+    margin: 8px 12px ;
+}
+
+.action-icon{
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.username_link{
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.like-count p{
+    margin: 0;
+}
+
+.post_owner{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.active{
+    color: red;
+}
+
+.comment-count p{
+    font-size: 15px;
+    color: rgba(229, 229, 229, 0.7);
+}
+
+@media screen and (max-width: 600px){
+    .col-md-4{
+        width: 10%;
+    }
+
+    nav{
+        width: 10%;
+    }
+}
+
+
+

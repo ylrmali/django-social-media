@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Iso&display=swap');
+/* font-family: 'Rubik Iso', cursive; */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap');
+/* font-family: 'Chakra Petch', sans-serif; */
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+nav{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    /*background-color: #1e1e1e;*/
+    background-color: black;
+    /*border-right: 1px solid #444444;*/
+    height: 100%;
+    width: 29%;
+
+}
+
+.fa-solid{
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.container-column{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.brand-text{
+    text-transform: uppercase;
+    font-size: 30px;
+    color: #A1CEEB;
+    font-family: 'Rubik Iso', cursive;
+}
+
+.nav-menu{
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-item a{
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 18px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: lighter;
+}
+
+#search-bar{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 204px;
+    background-color: #1e1e1e;
+    padding: 60px;
+    border: 1px solid rgba(164, 179, 190, 0.2);
+
+}
+
+.searchCloseBtn .fa-xmark{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    color: whitesmoke;
+    font-weight: lighter;
+}
+
+#searchbar{
+    border-radius: 3px;
+    width: 300px;
+    height: 40px;
+    background-color: #444444;
+    border: 0;
+    color: whitesmoke;
+    padding: 15px;
+}
+
+#searchbar:focus{
+    outline: 0;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    filter: invert(100%);
+}
+
+
+.user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-image{
+    width: 20px;
+    height: 20px;
+}
+
+.username{
+    font-family: 'Chakra Petch', sans-serif;
+    color: black;
+    font-weight: bolder;
+}
+
+.fa-solid{
+    cursor: pointer;
+    color: #DBE9F3;
+}
+
+.active{
+    display: flex;
+}
+
+.login-link{
+    border: 1px solid green;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: whitesmoke;
+    font-family: 'Chakra Petch', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.login-link:hover{
+    transition: 0.3s ease-in-out;
+    background-color: rgba(0, 128, 0, 0.2);
+}
+
+.logout-link{
+    border: 1px solid darkred;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: whitesmoke;
+    font-family: 'Chakra Petch', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.logout-link:hover{
+    transition: 0.3s ease-in-out;
+    background-color: rgba(255, 79, 79, 0.2);
+}
+
+
+
+
+@keyframes background {
+    0%{transition:1s ease-in-out; background-color: rgba(255, 165, 0, 0.2)
+    }
+    50%{transition:1s ease-in-out; background-color: rgba(255, 165, 0, 0.2); box-shadow: 5px 0 20px rgba(255, 165, 0, 0.5)
+    }
+    100%{transition:1s ease-in-out; background-color: rgba(255, 165, 0, 0.2); box-shadow: 10px 0 30px rgba(255, 165, 0, 0.5)
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .long-brand{display: none;}
+    .short-brand{display: block!important;}
+    .nav-text{display: none;}
+    .log-state{display: none}
+    .fa-solid{margin-right: 0;}
+    #search-bar{right: 102px;}
+}
+
+@media screen and (max-width: 400px){
+    nav{
+        height: 10px;
+        top: 92%;
+        left: 0;
+        right: 0;
+        flex-direction: row;
+    }
+
+    .container-column{
+        flex-direction: row;
+    }
+
+    .nav-menu{
+        flex-direction: row;
+        gap: 50px;
+    }
+
+    .brand{
+        display: none;
+    }
+
+    #hamburger{
+        display: none;
+    }
+}

@@ -1,0 +1,63 @@
+body{
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.profile-photo{
+    font-size: 50px;
+}
+
+.nickname{
+    margin: 0;
+    color: whitesmoke;
+    font-size: 20px;
+}
+
+.user_fullname{
+    margin: 0;
+    color: #838383;
+    font-size: 17px;
+}
+
+.user-row{
+    position: relative;
+    padding: 20px;
+    gap: 5px;
+}
+
+.bc-orange{
+    border-color: orangered;
+    background-color: rgba(255, 69, 0, 0.18);
+}
+
+/* follow button */
+
+.user-action{
+
+    width: 100%;
+}
+
+.user-action a{
+    text-decoration: none;
+    padding: 5px 20px;
+    border-radius: 3px;
+    font-size: 15px;
+    float: right;
+}
+
+.user-follow{
+    background-color: dodgerblue;
+    color: white;
+    text-align: center;
+}
+
+.user-unfollow{
+    background-color: transparent;
+    color: orangered;
+    border: 1px solid orangered;
+}
+
+.user-unfollow:hover{
+    transition: 0.3s ease-in-out;
+    background-color: rgba(255, 69, 0, 0.2);
+    color: whitesmoke;
+}

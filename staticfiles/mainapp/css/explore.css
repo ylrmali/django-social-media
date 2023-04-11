@@ -1,0 +1,45 @@
+body{
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.container{
+    width: 80%;
+    padding: 60px 40px;
+}
+
+.card{
+    border: 1px solid dimgrey;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.post-title {
+    font-size: 25px;
+    color: #3CBAF5;
+    text-decoration: none;
+}
+
+.post-text{
+    font-size: 15px;
+    color: #B1B1B1;
+}
+
+.post-time{
+    font-size: 12px;
+    color: #838383;
+}
+
+.fa-user{
+    font-size: 12px;
+    color: rgba(177, 177, 177, 0.7);
+    margin: 0 5px;
+}
+
+.post-owner{
+    margin: 3px 0;
+    color: rgba(177, 177, 177, 0.7);
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+

@@ -1,0 +1,36 @@
+body{
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+#id_comment_text{
+    width: 100%;
+    resize: none;
+    text-indent: 20px;
+    background-color: transparent;
+    color: #afafaf;
+    border-radius: 5px;
+    border: 1px dashed rgba(128, 128, 128, 0.55);
+    padding: 10px 0;
+}
+
+#id_comment_text:focus{
+    outline: none;
+}
+
+form p{
+    margin: 0;
+    width: 100%;
+}
+.f-right{
+    float: right;
+}
+
+.commentBtn{
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+

@@ -1,7 +1,5 @@
 venv/
 __pycache__
-static/
-staticfiles/
 .idea
 media/
 db.sqlite3
