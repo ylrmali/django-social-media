@@ -1,0 +1,19 @@
+<div class="row " id="posts">
+
+    {% if user_data.is_lock == False or is_follower %}
+        {% for post in user_post %}
+            <div class="col-md-6">
+                <div class="post">
+                    <img class="post_image" src="{{ post.post_media.url }}" alt="">
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="lock d-flex fd-column content-center">
+            <i class="fa-solid fa-lock"></i>
+            <p>Bu hesap kilitli</p>
+            <p>Hesap içeriğini görmek için takip et!</p>
+        </div>
+    {% endif %}
+
+</div>

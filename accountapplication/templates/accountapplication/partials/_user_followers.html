@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="card bc-orange d-flex fd-column">
+
+        {% for follower in followers %}
+            <div class="user-row d-flex align-items-center ">
+                <!-- user photo -->
+                {% if user_data.profile_photo %}
+                    <img src="{{ follower.profile_photo }}" alt="" class="ms-1">
+                {% else %}
+                    <i class="fa-solid fa-circle-user profile-photo ms-1"></i>
+                {% endif %}
+
+                <!-- username -->
+                <div class="user-info d-flex fd-column">
+                    <h2 class="nickname">{{ follower.username }}</h2>
+                    <p class="user_fullname">{{ follower.first_name }} {{ follower.last_name }}</p>
+                </div>
+
+                <!-- follow button -->
+{#                <div class="user-action">#}
+{#                    {% if is_follower %}#}
+{#                        <a class="user-unfollow"#}
+{#                           href={% url 'mainapp:unfollow' current_user_id=request.user.id target_user_id=follower.id %}>#}
+{#                            Takipten Çık#}
+{#                        </a>#}
+{##}
+{#                    {% else %}#}
+{#                        <a class="user-follow"#}
+{#                           href={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=follower.id %}>#}
+{#                            Takip Et#}
+{#                        </a>#}
+{#                    {% endif %}#}
+{#                </div>#}
+            </div>
+        {% endfor %}
+    </div>
+</div>

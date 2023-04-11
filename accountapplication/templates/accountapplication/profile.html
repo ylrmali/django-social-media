@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href={% static 'accountapplication/css/user-component.css' %}>
+    <link rel="stylesheet" href={% static 'accountapplication/css/post-component.css' %}>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container">
+        {% include 'accountapplication/partials/_user-component.html' %}
+        {% include 'accountapplication/partials/_user-posts.html' %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

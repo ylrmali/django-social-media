@@ -1,0 +1,27 @@
+
+        {% if comments %}
+            {% for comment in comments %}
+                    <div class="row align-items-center " style="border-bottom: 1px solid grey">
+                        <img  class="user_photo m-412" src="{{ comment.owner.profile_photo.url }}" alt="">
+                        <div class="d-flex fd-column">
+                            <p class="username" style="color: white;margin-bottom: 10px">{{ comment.owner.username }}</p>
+                            <p class="user-comment" style="color: white;margin-top: 0">{{ comment.comment_text }}</p>
+                        </div>
+                        <div class="commentLike w-100 m-812">
+                            <!-- like button -->
+                            <div hx-get="{% url 'mainapp:comment_like_control' comment.id %}"
+                                 hx-target="#likeIcon-{{ comment.id }}"
+                                 hx-trigger="load"
+                                 hx-swap="innerHTML">
+                            </div>
+                            <a hx-get="{% url 'mainapp:comment_like' comment.id %}"
+                               hx-target="#likeIcon-{{ comment.id }}"
+                               hx-swap="innerHTML"
+                               hx-trigger="click"
+                               id="likeIcon-{{ comment.id }}">
+                                <!-- like button will be here -->
+                            </a>
+                        </div>
+                    </div>
+            {% endfor %}
+        {% endif %}

@@ -1,0 +1,75 @@
+{% load static %}
+
+<!-- background image -->
+<div class="background-photo">
+    {% if user_data.background_photo %}
+        <img class="background-photo" src="{{ user_data.background_photo.url }}" alt="">
+    {% else %}
+        <div style="max-height: 208px;height: 208px;width: 100%;border-bottom: 1px solid grey;"></div>
+    {% endif %}
+</div>
+
+<!-- profile photo -->
+<div class="card-header content-center">
+    {% if user_data.profile_photo %}
+        <img class="user-photo" src="{{user_data.profile_photo.url }}" alt="">
+    {% else %}
+        <i class="fa-solid fa-circle-user user-icon"></i>
+    {% endif %}
+</div>
+
+<!-- user action / follower / following / post -->
+<div class="card-body">
+    <p class="mt-5 content-center user-name">{{ user_data.username }}</p>
+    <div class="acc-table">
+        <ul class="acc-list d-flex gap-3 content-center">
+            <li class="d-flex fd-column gap-1">
+                Post
+                <a href={% url 'profile' username=user_data.username %}>{{ post_count }}</a>
+            </li>
+            <li class="d-flex fd-column gap-1">
+                Follower
+                <a href={% url 'get-follower' username=user_data.username %}>{{ follower_count }}</a>
+            </li>
+            <li class="d-flex fd-column gap-1">
+                Following
+                <a href={% url 'get-following' username=user_data.username %}>{{ following_count }}</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- follower and message buttons -->
+    <div class="action d-flex gap-1 content-center">
+        {% if user.is_authenticated %}
+            {% if user_data != user.username %}
+                {% if is_follower %}
+                    <a class="unfollow" href={% url 'mainapp:unfollow' current_user_id=request.user.id target_user_id=user_id %}>Takipten Çık</a>
+                {% else %}
+                    <a class="follow" href={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=user_id %}>Takip Et</a>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <a class="follow" href={% url 'account_login' %}>Takip Et</a>
+        {% endif %}
+
+        <a class="message" href="">Mesaj Gönder</a>
+    </div>
+
+    <!-- user description -->
+    <div class="user-info mt-1">
+        <ul class="user-list d-flex fd-column ">
+            {% if user_data.first_name and user_data.last_name %}
+                <li class="user-item" style="font-weight: bolder">{{ user_data.first_name }} {{ user_data.last_name }}</li>
+            {% endif %}
+            {% if user_data.university %}
+                <li class="user-item">{{ user_data.university }}</li>
+            {% endif %}
+            {% if user_data.department %}
+                <li class="user-item">{{ user_data.department }}</li>
+            {% endif %}
+            {% if user_data.city %}
+                <li class="user-item">{{ user_data.city }}</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

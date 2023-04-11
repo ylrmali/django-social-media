@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- homepage header -->
+    <div class="page">
+        <p class="header ms-3">Anasayfa</p>
+        <ul class="tabs">
+            <li>
+                <a href="">Takip Edilenler</a>
+            </li>
+            <li>
+                <a href="">Keşfet</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- new post area -->
+    {% if user.is_authenticated %}
+        {% include 'mainapp/partials/_new-post.html' %}
+    {% endif %}
+
+    {% include 'mainapp/partials/_follower-posts.html' %}
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'mainapp/js/home.js' %}"></script>
+{% endblock %}

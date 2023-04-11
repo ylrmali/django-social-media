@@ -1,0 +1,34 @@
+<div class="new-post">
+    <div class="row">
+        <div id="message">
+                <!-- error or success message will be here -->
+        </div>
+    </div>
+    <div class="row gap-2">
+        {% if current_user.profile_photo %}
+            <img class="user-photo mt-2 ms-2" src="{{ current_user.profile_photo.url }}" alt="">
+        {% else %}
+            <i class="fa-solid fa-circle-user user-icon mt-2 ms-2"></i>
+        {% endif %}
+        <form method="POST"  enctype="multipart/form-data" style="width: 100%;margin-right: 20px;">
+            {% csrf_token %}
+            <textarea class="textarea" name="post" id="post" rows="1" placeholder="Yeni Bir Haber Var Mı?"></textarea>
+            <label for="media" id="image-label"><i class="fa-regular fa-image" style="color: #71b5f4;font-size: 18px"></i></label>
+            <input type="file"  formenctype="multipart/form-data" name="media" id="media" accept="image/jpeg, image/png, image/jpg" style="color: white">
+            <div id="image-box" >
+                <!-- when user select an image, image's preview will be shown in here -->
+            </div>
+            <button class="shareBtn" id="shareBtn" type="submit"
+                    hx-target="#message"
+                    hx-post="{% url 'mainapp:check' %}"
+                    hx-encoding="multipart/form-data"
+                    hx-swap="innerHTML"
+                    hx-trigger="click"
+                    hx-target="this"
+                    disabled>
+                    Paylaş
+            </button>
+
+        </form>
+    </div>
+</div>
