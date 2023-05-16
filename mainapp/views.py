@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from accountapplication.models import User, Post, Comment
+from accountapplication.models import User, Post, Comment, Profile
 from . forms import CreatePost, CreateComment
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.datastructures import MultiValueDictKeyError  # checking error
@@ -21,7 +21,7 @@ def home(request):
 
         # get the current user following list ( if ylrmali follow -> yigitali -> it will be in list)
         # define a for loop for append all users id in list.
-        user_following = User.objects.filter(follower=current_user.id)
+        user_following = Profile.objects.filter(follower=current_user.id)
         for users in user_following:
             user_following_list.append(users.id)
 
