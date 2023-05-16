@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
-from accountapplication.models import User, Post
+from accountapplication.models import User, Post, Profile
 
 # Create your views here.
 
 
 # home page
 def index(request):
-    target_user = User.objects.get(username=1)  # target user / who's profile will load
-    id = User.objects.get(username='asd').id  # target user id
+    target_user = Profile.objects.get(user=1)  # target user / who's profile will load
+    id = Profile.objects.get(user='asd').id  # target user id
     posts = Post.objects.filter(owner=id)  # target user's posts
     post_count = posts.count()  # target user's post count
     # is the current user following the target user?
@@ -21,8 +21,8 @@ def index(request):
 
 # user profile page
 def profile(request, username):
-    target_user = User.objects.get(username=username)   # target user / who's profile will load
-    id = User.objects.get(username=username).id         # target user id
+    target_user = Profile.objects.get(user=username)   # target user / who's profile will load
+    id = Profile.objects.get(user=username).id         # target user id
     posts = Post.objects.filter(owner=id)               # target user's posts
     post_count = posts.count()                          # target user's post count
     follower_count = target_user.follower.count()       # target user's follower count
