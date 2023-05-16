@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+cryptography = "==39.0.2"
+django-allauth = "==0.52.0"
+django-heroku = "==0.3.1"
+django-js-asset = "==2.0.0"
+django-tinymce = "==3.5.0"
+gunicorn = "==20.1.0"
+pillow = "==9.4.0"
+psycopg2-binary = "==2.9.5"
+tzdata = "==2022.7"
+unidecode = "==0.4.21"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
+python_full_version = "3.11.2"
