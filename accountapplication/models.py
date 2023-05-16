@@ -9,8 +9,6 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100)
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(unique=True)
-    profile_photo = models.ImageField(blank=True, null=True, upload_to='profile-photos')
-    background_photo = models.ImageField(blank=True, null=True, upload_to='background-photos')
     phone_number = models.BigIntegerField(unique=True, blank=True, null=True)
     password = models.TextField()
     city = models.CharField(max_length=100, blank=True, null=True)
@@ -19,14 +17,31 @@ class User(AbstractUser):
     job = models.CharField(max_length=100, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True, editable=False)
+    
+
+    def __str__(self):
+        return self.username
+    
+
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile')
+    profile_photo = models.ImageField(blank=True, null=True, upload_to='profile-photos')
+    background_photo = models.ImageField(blank=True, null=True, upload_to='background-photos')
     last_online = models.DateTimeField(auto_now=True, editable=False)
     is_active = models.BooleanField(default=True)
     is_lock = models.BooleanField(default=False)
     follower = models.ManyToManyField("self",  blank=True, null=True)
     following = models.ManyToManyField("self", blank=True, null=True)
 
+    def get_followers(self):
+        return self.follower.all()
+    
+    def get_following(self):
+        return self.following.all()
+    
     def __str__(self):
-        return self.username
+        return f'{self.user.username} Profile'
+
 
 
 class Post(models.Model):
