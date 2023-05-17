@@ -24,7 +24,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{% if user.is_authenticated %}
-                                /user/{{ user }}
+                                /user/{{ user.id }}
                             {% else %}
                                 /accounts/login/
                             {% endif %} ">
