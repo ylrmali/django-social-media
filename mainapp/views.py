@@ -211,8 +211,8 @@ def follow(request, current_user_id, target_user_id):
     # cu = current user
     # tu = target user
     # ua_cu = user action current user / ua_tu = user action target user
-    cu = User.objects.get(id=current_user_id)  # get current user
-    tu = User.objects.get(id=target_user_id)  # get target user
+    cu = Profile.objects.get(user=current_user_id)  # get current user
+    tu = Profile.objects.get(user=target_user_id)  # get target user
     cu.following.add(target_user_id)  # add the target user from the current user following list.
     tu.follower.add(current_user_id)  # add the current user from the target user follower list
     return redirect(f'/user/{tu.username}')
