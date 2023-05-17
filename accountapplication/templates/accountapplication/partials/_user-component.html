@@ -25,7 +25,7 @@
         <ul class="acc-list d-flex gap-3 content-center">
             <li class="d-flex fd-column gap-1">
                 Post
-                <a href={% url 'profile' username=user_data.username %}>{{ post_count }}</a>
+                <a href={% url 'profile' user_id=user_data.id %}>{{ post_count }}</a>
             </li>
             <li class="d-flex fd-column gap-1">
                 Follower
@@ -43,9 +43,9 @@
         {% if user.is_authenticated %}
             {% if user_data != user.username %}
                 {% if is_follower %}
-                    <a class="unfollow" href={% url 'mainapp:unfollow' current_user_id=request.user.id target_user_id=user_id %}>Takipten Çık</a>
+                    <a class="unfollow" href={% url 'mainapp:unfollow' current_user_id=request.user.id target_user_id=user_data.id %}>Takipten Çık</a>
                 {% else %}
-                    <a class="follow" href={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=user_id %}>Takip Et</a>
+                    <a class="follow" href={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=user_data.id %}>Takip Et</a>
                 {% endif %}
             {% endif %}
         {% else %}
