@@ -5,7 +5,6 @@ from django.dispatch import receiver
 
 ''' When the user create an account, profile automaticly will be creat '''
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, **kwargs):
-    print(instance)
-    if instance:
+def create_profile(sender, instance, created, **kwargs):
+    if created:
         Profile.objects.create(user=instance)
