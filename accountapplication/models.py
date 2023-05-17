@@ -30,8 +30,8 @@ class Profile(models.Model):
     last_online = models.DateTimeField(auto_now=True, editable=False)
     is_active = models.BooleanField(default=True)
     is_lock = models.BooleanField(default=False)
-    follower = models.ManyToManyField("self",  blank=True, null=True)
-    following = models.ManyToManyField("self", blank=True, null=True)
+    follower = models.ManyToManyField(User,  blank=True, null=True, related_name='followers')
+    following = models.ManyToManyField(User, blank=True, null=True, related_name='followings')
 
     def get_followers(self):
         return self.follower.all()
