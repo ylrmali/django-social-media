@@ -29,11 +29,11 @@
             </li>
             <li class="d-flex fd-column gap-1">
                 Follower
-                <a href={% url 'get-follower' username=user_data.username %}>{{ follower_count }}</a>
+                <a href={% url 'get-follower' username=user_data.id %}>{{ follower_count }}</a>
             </li>
             <li class="d-flex fd-column gap-1">
                 Following
-                <a href={% url 'get-following' username=user_data.username %}>{{ following_count }}</a>
+                <a href={% url 'get-following' username=user_data.id %}>{{ following_count }}</a>
             </li>
         </ul>
     </div>
