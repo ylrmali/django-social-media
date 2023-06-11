@@ -4,18 +4,20 @@
 
 .card-header{
     position: absolute;
-    top: 15%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%);
 }
 
 .card-body{
     border-bottom: 1px solid grey;
+    margin-top: 50px;
 }
 
 
 .background-photo{
     width: 100%;
+    position: relative;
 }
 
 .user-photo{
@@ -25,6 +27,10 @@
     max-width: 150px;
     max-height: 150px;
     border: 3px solid black;
+}
+
+.user_fullname{
+    font-size: 15px;
 }
 
 .user-icon{
@@ -101,3 +107,74 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.edit-profile { 
+    cursor: pointer;
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+    padding: 0 30px;
+    color: dodgerblue;
+}
+
+.edit-profile:hover {
+    transition: 0.3s ease-in-out;
+    background-color: rgba(87, 154, 221, 0.5);
+    color: white;
+}
+
+/* popUp section */
+
+#popUp{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(44, 44, 44, 0.95);
+    min-width: 500px;
+    min-height: 500px;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+}
+
+#deleteBtn{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}
+
+/* edit pop up section */
+#editPopUp {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(44, 44, 44, 0.95);
+    min-width: 500px;
+    min-height: 500px;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+}
+
+
+form p{
+    padding: 30px;
+}
+
+form p input[type='file']{
+    width: 100%;
+    margin: 20px 0;
+}
+
+.edit_btn {
+    width: 30%;
+    height: 35px;
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    background-color: rgb(85, 163, 241);
+    color: white;
+    cursor: pointer;
+}
