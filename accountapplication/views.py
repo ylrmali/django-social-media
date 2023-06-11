@@ -26,13 +26,12 @@ def profile(request, user_id):
         user = User.objects.get(id=user_id)
         target_user = Profile.objects.get(user=user_id)   # target user / who's profile will load
         id = Profile.objects.get(user=user_id).id       # target user id
-        posts = Post.objects.filter(owner=id)               # target user's posts
+        posts = Post.objects.filter(owner_id=user_id)               # target user's posts
         post_count = posts.count()                          # target user's post count
         follower_count = target_user.follower.count()       # target user's follower count
         following_count = target_user.following.count()     # target user's following count
         # is the current user following the target user?
         tu_is_follower = target_user.follower.filter(username=request.user.username).exists()  # is current user a follower?
-
         context = {
             'user_data': user,
             'profile_data': target_user,
@@ -52,15 +51,15 @@ def profile(request, user_id):
 
 
 def get_follower(request, username):
-    target_user = User.objects.get(username=username)  # target user / who's profile will load
-    id = User.objects.get(username=username).id        # target user id
+    target_user = Profile.objects.get(user=username)  # target user / who's profile will load
+    id = Profile.objects.get(user=username).id        # target user id
     posts = Post.objects.filter(owner=id)              # target user's posts
     post_count = posts.count()                         # target user's post count
     follower_count = target_user.follower.count()      # target user's follower count
     following_count = target_user.following.count()    # target user's following count
     # is the current user following the target user?
     tu_is_follower = target_user.follower.filter(username=request.user).exists()  # is current user a follower?
-    followers = list(target_user.follower.values('id', 'username', 'first_name', 'last_name', 'profile_photo'))
+    followers = list(target_user.follower.values('id', 'username', 'first_name', 'last_name'))
     context = {
         'user_data': target_user,
         'user_post': posts,
@@ -71,7 +70,7 @@ def get_follower(request, username):
         'is_follower': tu_is_follower,
         'followers': followers,
     }
-    return render(request, 'accountapplication/user_followers.html', context)
+    return render(request, 'accountapplication/partials/_user_followers.html', context)
 
 
 def get_following(request, username):
@@ -97,5 +96,5 @@ def get_following(request, username):
         'is_follower': tu_is_follower,
         'followings': followings,
     }
-    return render(request, 'accountapplication/user_following.html', context)
+    return render(request, 'accountapplication/partials/_user_following.html', context)
 
