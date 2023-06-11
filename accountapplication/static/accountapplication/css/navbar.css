@@ -61,7 +61,8 @@ nav{
     position: fixed;
     top: 0;
     bottom: 0;
-    right: 204px;
+    /* right: 204px; */
+    max-width: 300px;
     background-color: #1e1e1e;
     padding: 60px;
     border: 1px solid rgba(164, 179, 190, 0.2);
@@ -73,7 +74,6 @@ nav{
     top: 20px;
     right: 10px;
     color: whitesmoke;
-    font-weight: lighter;
 }
 
 #searchbar{
