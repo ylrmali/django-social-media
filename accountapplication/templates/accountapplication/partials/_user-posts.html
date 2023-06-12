@@ -1,13 +1,17 @@
 <div class="row " id="posts">
 
-    {% if user_data.is_lock == False or is_follower %}
-        {% for post in user_post %}
-            <div class="col-md-6">
-                <div class="post">
-                    <img class="post_image" src="{{ post.post_media.url }}" alt="">
+    {% if user_data.is_lock == False or is_follower or user == user_data%}
+        {% if  user_post%}
+            {% for post in user_post %}
+                <div class="col-md-6">
+                    <a class="post" href="{% url 'mainapp:post_detail' pk=post.id %}">
+                        <img class="post_image" src="{{ post.post_media.url }}" alt="">
+                    </a>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+                <h1 style='text-aling:center;margin:0 auto;margin-top:100px;'>Burda Henüz Bir Gönderi Yok :/</h1>
+        {% endif %}        
     {% else %}
         <div class="lock d-flex fd-column content-center">
             <i class="fa-solid fa-lock"></i>
@@ -15,5 +19,4 @@
             <p>Hesap içeriğini görmek için takip et!</p>
         </div>
     {% endif %}
-
 </div>
