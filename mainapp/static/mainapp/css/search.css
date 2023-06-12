@@ -1,0 +1,20 @@
+.username {
+    color: rgb(185, 185, 185);
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.small-photo{
+    width: 100%;
+    border-radius: 100%;
+    max-width: 48px;
+    max-height: 48px;
+    cursor: pointer;
+}
+
+.search-user-icon {
+    width: 100%;
+    border-radius: 100%;
+    font-size: 48px;
+    opacity: 50%;
+}
