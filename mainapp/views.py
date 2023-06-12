@@ -102,8 +102,15 @@ def explore(request):
     return render(request, 'mainapp/explore.html', context)
 
 
-# post detail page. I get slug params in url. Check the url.py post-detail function
+# 
 def post_detail(request, pk):
+    ''' post detail page. I get slug params in url. Check the url.py post-detail function 
+        if method is post its means someone commit a comment
+        else return create comment form, post, post_owner, comments_data(user profile & comment),
+            comment counts.
+        
+    '''
+
     if request.method == 'POST':
         form = request.POST['comment_text']
         owner = request.user
@@ -114,11 +121,26 @@ def post_detail(request, pk):
     else:
         form = CreateComment()
         post = Post.objects.get(id=pk)
-        comments = Comment.objects.order_by('created_time').filter(post_id=pk)
+        detail_datas = []
+        post_owner = Profile.objects.get(user=post.owner)
+        comments = list(Comment.objects.order_by('created_time').filter(post_id=pk))
+        for index, comment in enumerate(comments):
+            ''' get comments from comment object filtered as post id  
+                get comment owner profile object filtered as user 
+                then append these datas to comment_data list
+                finally append this list to detail_datas list
+            '''
+            comment_data = []
+            comment_user_photo = Profile.objects.get(user=comment.owner)
+            comment_data.append(comment)
+            comment_data.append(comment_user_photo)
+            detail_datas.append(comment_data)
+
         comments_count = Comment.objects.filter(post_id=pk).count()
         context = {
             'post': post,
-            'comments': comments,
+            'post_owner': post_owner,
+            'comments_data': detail_datas,
             'comments_count': comments_count,
             'form': form,
         }
@@ -186,9 +208,11 @@ def comment_like_control(request, comment_id):
 
     control = like_owner_list.__contains__(user.username)
     if control:
+        return HttpResponse('hello')
         return HttpResponse(f"<i class='fa-solid fa-heart m-812' style='color: #e73c04; font-size:20px; margin:0;float:right;' "
                             f"id='likeIcon-{comment.id}'></i> ")
     else:
+        return HttpResponse('hello')
         return HttpResponse(f"<i class='fa-regular fa-heart action-icon m-812' "
                             f"style='margin:0;float:right;' "
                             f"id='likeIcon-{comment.id}'></i>")
@@ -205,11 +229,12 @@ def like_control(request, post_id, user_id):
         like_owner_list.append(owner.username)
 
     control = like_owner_list.__contains__(user.username)
+    print(control)
     if control:
-        return HttpResponse(f"<i class='fa-solid fa-heart' style='color: #e73c04; font-size:20px; margin:0;' "
-                            f"id='likeIcon-{post.id}'></i> ")
+        return HttpResponse(f"<i class='fa-solid fa-heart' data-like-control={control} style='color: #e73c04; font-size:20px; margin:0;' "
+                            f"id='likeIcon'></i> ")
     else:
-        return HttpResponse(f"<i class='fa-regular fa-heart action-icon' style='margin:0;' id='likeIcon-{post.id}'></i>")
+        return HttpResponse(f"<i class='fa-regular fa-heart action-icon' data-like-control={control} style='margin:0;color:white;' id='likeIcon'></i>")
 
 
 def follow(request, current_user_id, target_user_id):
@@ -278,4 +303,3 @@ def profile_edit(request, user_id):
         return render(request, 'accountapplication/partials/_edit_profile.html', context)
     
 
-def image_detail()
