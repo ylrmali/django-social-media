@@ -91,6 +91,7 @@ body{
     border-radius:30px;
     margin: 10px 20px;
     float: right;
+    cursor: pointer;
 }
 
 .shareBtn[disabled]{
