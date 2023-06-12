@@ -1,6 +1,5 @@
-<div class="container">
-    <div class="card bc-orange d-flex fd-column">
-
+<div class="container" style='padding:30px;' > 
+    <div class="card bc-orange d-flex fd-column" id='userlist'>
         {% for follower in followers %}
             <div class="user-row d-flex align-items-center ">
                 <!-- user photo -->
@@ -15,23 +14,12 @@
                     <h2 class="nickname">{{ follower.username }}</h2>
                     <p class="user_fullname">{{ follower.first_name }} {{ follower.last_name }}</p>
                 </div>
-
-                <!-- follow button -->
-{#                <div class="user-action">#}
-{#                    {% if is_follower %}#}
-{#                        <a class="user-unfollow"#}
-{#                           href={% url 'mainapp:unfollow' current_user_id=request.user.id target_user_id=follower.id %}>#}
-{#                            Takipten Çık#}
-{#                        </a>#}
-{##}
-{#                    {% else %}#}
-{#                        <a class="user-follow"#}
-{#                           href={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=follower.id %}>#}
-{#                            Takip Et#}
-{#                        </a>#}
-{#                    {% endif %}#}
-{#                </div>#}
             </div>
         {% endfor %}
     </div>
+
+    <div id="deleteBtn" onclick="this.parentElement.parentElement.style.display='none';document.getElementById('userlist').innerHTML =' ';">
+        <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+    </div>
+    
 </div>
