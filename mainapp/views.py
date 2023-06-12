@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from accountapplication.models import User, Post, Comment, Profile
 from . forms import CreatePost, CreateComment
+from accountapplication.forms import ProfileEditForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.datastructures import MultiValueDictKeyError  # checking error
 from itertools import chain  # we convert queryset with list
+import requests
 
 # Create your views here.
 
-name = 'mainappView'
 
 
 # home page rendering
@@ -22,30 +23,33 @@ def home(request):
         # get the current user following list ( if ylrmali follow -> yigitali -> it will be in list)
         # define a for loop for append all users id in list.
         # user_following = Profile.objects.filter(follower=current_user.id)
-        user_following = Profile.objects.get(user=current_user.id).get_following();
-        for users in user_following:
-            user_following_list.append(users.id)
+        try:
+            user_following = Profile.objects.get(user=current_user.id).get_following();
+            for users in user_following:
+                user_following_list.append(users.id)
 
-        # get users id in user following list.
-        # get these user's post.
-        # append these posts in post array
-        for user_id in user_following_list:
-            post_list = Post.objects.filter(owner_id=user_id)
-            post.append(post_list)
+            # get users id in user following list.
+            # get these user's post.
+            # append these posts in post array
+            for user_id in user_following_list:
+                post_list = Post.objects.filter(owner_id=user_id)
+                post.append(post_list)
 
-        posts = list(chain(*post))  # convert queryset to list
+            posts = list(chain(*post))  # convert queryset to list
 
-        is_liked_list = []
-        for post in posts:
-            is_liked = (list(post.like_owner.all()).__contains__(request.user))
-            is_liked_list.append(is_liked)
+            is_liked_list = []
+            for post in posts:
+                is_liked = (list(post.like_owner.all()).__contains__(request.user))
+                is_liked_list.append(is_liked)
 
-        context = {
-            'current_user': current_user,
-            'posts': posts,
-            'is_liked': is_liked_list,
-        }
-        return render(request, 'mainapp/home.html', context)
+            context = {
+                'current_user': current_user,
+                'posts': posts,
+                'is_liked': is_liked_list,
+            }
+            return render(request, 'mainapp/home.html', context)
+        except Profile.DoesNotExist:
+            return HttpResponse('kullanıcı profili bulunamadi')
     except User.DoesNotExist:
         return render(request, 'mainapp/home.html')
 
@@ -216,16 +220,62 @@ def follow(request, current_user_id, target_user_id):
     tu = Profile.objects.get(user=target_user_id)  # get target user
     cu.following.add(target_user_id)  # add the target user from the current user following list.
     tu.follower.add(current_user_id)  # add the current user from the target user follower list
-    return redirect(f'/user/{tu.user.id}')
+    return redirect(f'/user/{tu.user_id}')
 
 
 def unfollow(request, current_user_id, target_user_id):
     # cu = current user
     # tu = target user
     # ua_cu = user action current user / ua_tu = user action target user
-    cu = Profile.objects.get(id=current_user_id)  # get current user
-    tu = Profile.objects.get(id=target_user_id)   # get target user
+    cu = Profile.objects.get(user=current_user_id)  # get current user
+    tu = Profile.objects.get(user=target_user_id)   # get target user
     cu.following.remove(target_user_id)        # remove the target user in the current user following list.
     tu.follower.remove(current_user_id)        # remove the current user in the target user follower list.
-    return redirect(f'/user/{tu.user.id}')
+    return redirect(f'/user/{tu.user_id}')
 
+def search(request, argument):
+    ''' this function search user when user type something in search bar '''
+    user = User.objects.filter(username__contains=argument)
+    ''' get users profile photos '''
+    user_list = list(user)
+    user_datas = []
+    for index, u in enumerate(user):
+        photo = Profile.objects.get(user=u.id).profile_photo
+        print(index, u, type(user_list[index]))
+        item = []
+        item.append(u)
+        item.append(str(photo))
+        user_datas.append(item)
+
+    print(user_datas)
+    context = {
+        'users': user_datas,
+        
+    }
+    
+    return render(request, 'mainapp/search_list.html', context)
+
+
+
+def profile_edit(request, user_id):
+    ''' 
+        edit user profile with this function
+        this function works with django forms 
+        this function can update user profile photo and background photo
+    '''
+    if request.method == 'POST':
+        instance = Profile.objects.get(user=user_id)
+        form = ProfileEditForm(request.FILES, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('asd')
+        
+    else:
+        form = ProfileEditForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'accountapplication/partials/_edit_profile.html', context)
+    
+
+def image_detail()
