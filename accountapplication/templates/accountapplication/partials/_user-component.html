@@ -2,38 +2,61 @@
 
 <!-- background image -->
 <div class="background-photo">
-    {% if user_data.background_photo %}
-        <img class="background-photo" src="{{ user_data.background_photo.url }}" alt="">
+    {% if profile_data.background_photo %}
+        <img class="background-photo" src="{{ profile_data.background_photo.url }}" alt="">
     {% else %}
         <div style="max-height: 208px;height: 208px;width: 100%;border-bottom: 1px solid grey;"></div>
     {% endif %}
+
+    <!-- profile photo -->
+    <div class="card-header content-center" id='photo-card'>
+        {% if profile_data.profile_photo %}
+            <img class="user-photo" src="{{profile_data.profile_photo.url }}" alt="">
+        {% else %}
+            <i class="fa-solid fa-circle-user user-icon"></i>
+        {% endif %}
+    </div>
 </div>
 
-<!-- profile photo -->
-<div class="card-header content-center">
-    {% if user_data.profile_photo %}
-        <img class="user-photo" src="{{user_data.profile_photo.url }}" alt="">
-    {% else %}
-        <i class="fa-solid fa-circle-user user-icon"></i>
-    {% endif %}
-</div>
+
 
 <!-- user action / follower / following / post -->
-<div class="card-body">
+<div class="card-body" style='position: relative;'>
     <p class="mt-5 content-center user-name">{{ user_data.username }}</p>
     <div class="acc-table">
         <ul class="acc-list d-flex gap-3 content-center">
-            <li class="d-flex fd-column gap-1">
+            <li class="d-flex fd-column gap-1" >
                 Post
-                <a href={% url 'profile' user_id=user_data.id %}>{{ post_count }}</a>
+                <a >
+                {{ post_count }}
+                </a>
             </li>
-            <li class="d-flex fd-column gap-1">
-                Follower
-                <a href={% url 'get-follower' username=user_data.id %}>{{ follower_count }}</a>
+            <!-- if user does not follow user dont show follower and following details popup -->
+            <li class="d-flex fd-column gap-1" 
+                {% if is_follower %}
+                    hx-get={% url 'get-follower' username=user_data.id %}
+                    hx-target='#popUp'
+                    hx-trigger='click'
+                    onclick="document.getElementById('popUp').style.display = 'block'"
+                    style='cursor:pointer;'>
+                {% else %}
+                    style='cursor:default'>
+                {% endif %}
+                    Follower
+                <a >{{ follower_count }}</a>
             </li>
-            <li class="d-flex fd-column gap-1">
+            <li class="d-flex fd-column gap-1"
+                {% if is_follower %}
+                    hx-get={% url 'get-following' username=user_data.id %}
+                    hx-target='#popUp'
+                    hx-trigger='click' 
+                    onclick="document.getElementById('popUp').style.display = 'block'"
+                    style='cursor:pointer;'>
+                {% else %}
+                    style='cursor:default'>
+                {% endif %}
                 Following
-                <a href={% url 'get-following' username=user_data.id %}>{{ following_count }}</a>
+                <a >{{ following_count }}</a>
             </li>
         </ul>
     </div>
@@ -41,18 +64,30 @@
     <!-- follower and message buttons -->
     <div class="action d-flex gap-1 content-center">
         {% if user.is_authenticated %}
-            {% if user_data != user.username %}
+            {% if user_data.username != user.username %}
                 {% if is_follower %}
                     <a class="unfollow" href={% url 'mainapp:unfollow' current_user_id=request.user.id target_user_id=user_data.id %}>Takipten Çık</a>
                 {% else %}
                     <a class="follow" href={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=user_data.id %}>Takip Et</a>
                 {% endif %}
+
+                <a class="message" href="">Mesaj Gönder</a>
+
+            {% else %}
+                <a hx-get="{% url 'mainapp:edit_profile' user_id=user.id %}" 
+                   hx-trigger='click'
+                   hx-target='#editPopUp'
+                   class='edit-profile'
+                   onclick="document.getElementById('editPopUp').style.display='block'">
+                   Profili Düzenle
+                </a>
             {% endif %}
         {% else %}
             <a class="follow" href={% url 'account_login' %}>Takip Et</a>
         {% endif %}
 
-        <a class="message" href="">Mesaj Gönder</a>
+
+
     </div>
 
     <!-- user description -->
@@ -71,5 +106,13 @@
                 <li class="user-item">{{ user_data.city }}</li>
             {% endif %}
         </ul>
+    </div>
+
+    <div id="popUp">
+        <!-- popUp will shown here -->
+    </div> 
+    
+    <div id='editPopUp'>
+        <!-- edit profile pop up will be here -->
     </div>
 </div>
