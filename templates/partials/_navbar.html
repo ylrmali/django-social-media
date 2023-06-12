@@ -41,8 +41,8 @@
         <!-- open search bar -->
         <div id="search-bar">
             <p style="font-family: 'Chakra Petch', sans-serif;font-size: 30px;color: whitesmoke;text-align: center;">Search</p>
-            <input type="search" id="searchbar" placeholder="Search">
-            <div class="user-results">
+            <input type="search" id="searchbar" placeholder="Search" oninput='searchUser(this.value)'>
+            <div id="user-results">
 
             </div>
             <div class="searchCloseBtn">
