@@ -13,7 +13,10 @@
         <form method="POST"  enctype="multipart/form-data" style="width: 100%;margin-right: 20px;">
             {% csrf_token %}
             <textarea class="textarea" name="post" id="post" rows="1" placeholder="Yeni Bir Haber Var Mı?"></textarea>
-            <label for="media" id="image-label"><i class="fa-regular fa-image" style="color: #71b5f4;font-size: 18px"></i></label>
+            <!-- add media button -->
+            <label for="media" id="image-label">
+                <i class="fa-regular fa-image" style="color: #71b5f4;font-size: 18px;cursor:pointer;"></i>
+            </label>
             <input type="file"  formenctype="multipart/form-data" name="media" id="media" accept="image/jpeg, image/png, image/jpg" style="color: white">
             <div id="image-box" >
                 <!-- when user select an image, image's preview will be shown in here -->
