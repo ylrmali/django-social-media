@@ -1,13 +1,19 @@
 
-        {% if comments %}
-            {% for comment in comments %}
+        {% if comments_data %}
+            {% for comment in comments_data %}
                     <div class="row align-items-center " style="border-bottom: 1px solid grey">
-                        <img  class="user_photo m-412" src="{{ comment.owner.profile_photo.url }}" alt="">
+                        <a href="{% url 'profile' user_id=comment.0.owner.id%}">
+                            <img  class="user_photo m-412" src="{{ comment.1.profile_photo.url }}" alt="">
+                        </a>
                         <div class="d-flex fd-column">
-                            <p class="username" style="color: white;margin-bottom: 10px">{{ comment.owner.username }}</p>
-                            <p class="user-comment" style="color: white;margin-top: 0">{{ comment.comment_text }}</p>
+                            <p class="username" style="color: white;margin-bottom: 10px">
+                                <a href="{% url 'profile' user_id=comment.0.owner.id%}"
+                                   style='text-decoration:none;color:rgb(185, 185, 185);'
+                                >{{ comment.0.owner.username }}</a>
+                            </p>
+                            <p class="user-comment" style="color: white;margin-top: 0">{{ comment.0.comment_text }}</p>
                         </div>
-                        <div class="commentLike w-100 m-812">
+                        {% comment %} <div class="commentLike w-100 m-812">
                             <!-- like button -->
                             <div hx-get="{% url 'mainapp:comment_like_control' comment.id %}"
                                  hx-target="#likeIcon-{{ comment.id }}"
@@ -21,7 +27,7 @@
                                id="likeIcon-{{ comment.id }}">
                                 <!-- like button will be here -->
                             </a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
             {% endfor %}
         {% endif %}
