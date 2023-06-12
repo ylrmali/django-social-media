@@ -1,0 +1,11 @@
+
+<h1 class='content-center'>Profil Düzenleme</h1>
+<form action="{% url 'mainapp:edit_profile' user.id %}" method='POST' enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class='edit_btn content-center'>Düzenle</button>
+</form>
+
+<div id="deleteBtn" onclick="this.parentElement.style.display='none'">
+    <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+</div>
