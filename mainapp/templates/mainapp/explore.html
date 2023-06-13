@@ -3,29 +3,91 @@
 
 {% block style %}
     <link rel="stylesheet" href={% static 'mainapp/css/explore.css' %}>
+    <link rel="stylesheet" href={% static 'mainapp/css/post-detail.css' %}>
+    <link rel="stylesheet" href={% static 'mainapp/css/home.css' %}>
+
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <div class="card">
-            {% for post in posts %}
+            {% for post in post_datas %}
                 <div class="post">
-                    <a class="post-owner d-flex align-items-center" href="/user/{{ post.owner }}">
-                        <i class="fa-solid fa-user"></i>
-                        {{ post.owner }}
-                    </a>
-                    <a class="post-title" href="/post/{{ post.id }}">
-                        {{ post.post_title }}
-                    </a>
-                    <p class="post-text">
-                        {{ post.post_text|striptags|slice:"0:300"}}
-                    </p>
-                    <p class="post-time mb-5">
-                        {{ post.created_time }}
-                    </p>
+                    <!-- user photo and username -->
+                    <div class="post-header">
+                        <div class="row gap-1 m-412 align-items-center">
+                            {% if post.0.profile_photo %}
+                                <a href="{% url 'profile' user_id=post.1.owner.id %}">
+                                    <img class="user_photo"  src="{{ post.0.profile_photo.url }}" alt="" >
+                                </a>
+                            {% endif %}
+                            <a href="{% url 'profile' user_id=post.1.owner.id %}" class="post_owner">
+                                <p>{{ post.1.owner }}</p>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- post content (image or text) -->
+                    <div class="post-body mb-3">
+                        <!-- post image -->
+                        {% if post.1.post_media %}
+                            <img src="{{ post.1.post_media.url }}" style="width: 100%;" alt="post_image">
+                        {% endif %}
+                        <!-- post action section ( like-comment-share) -->
+                        <div class="post-action">
+                            <div class="row align-items-center m-412 gap-1">
+                                <!-- like button -->
+                                <div class="like" id="like">
+                                    <!-- like click event -->
+                                    <div hx-get="{% url 'mainapp:like_control' post_id=post.1.id user_id=post.1.owner_id %}"
+                                        hx-trigger="load"
+                                        hx-target="#likeIcon-{{ post.1.id }}"
+                                        hx-swap="innerHTML">
+                                    </div>
+        
+                                    <!-- when user click like button -> like function will be work -->
+                                    <a hx-get="{% url 'mainapp:like' post.1.id %}"
+                                    hx-trigger="click"
+                                    hx-target="#like_count-{{ post.1.id }}"
+                                    id="like">
+            {#                             <i class="fa-regular fa-heart action-icon" id="likeIcon-{{ post.id }}"></i>#}
+                                        <div id="likeIcon-{{ post.1.id }}"></div>
+                                    </a>
+                                </div>
+                                <!-- comment button -->
+                                <div class="comment">
+                                    <a href="{% url 'mainapp:post_detail' post.1.id %}">
+                                        <i class="fa-regular fa-comment action-icon"></i>
+                                    </a>
+                                </div>
+                                <!-- share button -->
+                                <div class="share">
+                                    <i class="fa-solid fa-reply action-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <!-- post like count -->
+                        <div class="like-count m-812">
+                            <p style="color: white"> <span id="like_count-{{ post.1.id }}">{{ post.1.like_owner.count }}</span> likes</p>
+                        </div>
+        
+                        <!-- post text -->
+                        <p class="text m-812" style="color:white;">
+                            <a href="" class="username_link " style="color: white;">{{ post.1.owner }}</a>
+                            {{ post.1.post_text }}
+                        </p>
+        
+                        <!-- comment count -->
+                        <div class="comment-count m-812">
+                            <p>{{ post.2 }} comments...</p>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
-        </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script async src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script  src={% static 'mainapp/js/post-detail.js' %}></script>
 {% endblock %}
