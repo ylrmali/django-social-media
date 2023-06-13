@@ -95,9 +95,20 @@ def check(request):
 
 # explore page rendering
 def explore(request):
-    posts = Post.objects.filter(is_active=True)
+    post_datas = []
+    posts = list(Post.objects.filter(is_active=True))
+    for post in posts:
+        profile = Profile.objects.get(user=post.owner)
+        comments_count = Comment.objects.filter(post=post.id).count()
+        datas = []
+        datas.append(profile)
+        datas.append(post)
+        datas.append(comments_count)
+        post_datas.append(datas)
+
+    print(post_datas)
     context = {
-        'posts': posts
+        'post_datas': post_datas
     }
     return render(request, 'mainapp/explore.html', context)
 
@@ -243,6 +254,7 @@ def follow(request, current_user_id, target_user_id):
     # ua_cu = user action current user / ua_tu = user action target user
     cu = Profile.objects.get(user=current_user_id)  # get current user
     tu = Profile.objects.get(user=target_user_id)  # get target user
+    print(tu.is_lock)
     cu.following.add(target_user_id)  # add the target user from the current user following list.
     tu.follower.add(current_user_id)  # add the current user from the target user follower list
     return redirect(f'/user/{tu.user_id}')
