@@ -34,3 +34,9 @@ form p{
     cursor: pointer;
 }
 
+.post_owner{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
