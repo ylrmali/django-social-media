@@ -1,0 +1,100 @@
+
+{% if notifications %}
+    {% for noti in notifications %}
+        {% if noti.is_visible %}
+            {% if noti.type %}
+                <div class="follow-notification">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            {% if noti.owner_user.profile_photo %}
+                                <img class='user_photo' src="{{ noti.owner_user.profile_photo.url }}" alt="">
+                            {% else %}
+                                <i class="fa-solid fa-circle-user noti-user"></i>   
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row align-items-center">
+                                <p>{{ noti.notification.message}} </p>
+                                <div  onclick='this.parentElement.parentElement.parentElement.parentElement.remove()'>
+                                    <i class="fa-solid fa-xmark" 
+                                       id='delete-noti'
+                                       style='font-size:15px;margin-left:10px'
+                                       hx-get="{% url 'mainapp:ignore' noti_id=noti.id %}"
+                                       hx-trigger='click'>
+                                    </i>
+                                </div>
+                            </div>
+                            {% if profile.is_lock %}
+                                {% if noti.is_read %}
+                                    <div class="row" id='read'>
+                                        <div onclick="deleteNotification(this.parentElement.parentElement.parentElement.parentElement)">
+                                            <a class="re_follow_button"
+                                               hx-get="{% url 'mainapp:refollow' current_user_id=noti.user.id target_user_id=noti.owner_user.id noti_id=noti.id %}"
+                                               hx-trigger='click'>
+                                                Geri Takip Et
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="row gap-1" id='not_read'>
+                                        <div onclick="changeState(this.parentElement, document.getElementById('read'))">
+                                            <a class="accept_button"
+                                            hx-get="{% url 'mainapp:accept' current_user_id=noti.user.id target_user_id=noti.owner_user.id noti_id=noti.id %}"
+                                            hx-trigger='click'
+                                            >
+                                                Onayla
+                                            </a>
+                                        </div>
+                                        <div onclick="changeState(this.parentElement, document.getElementById('read'))">
+                                            <a class='ignore_button'
+                                            hx-get="{% url 'mainapp:ignore' noti_id=noti.id %}"
+                                            hx-trigger='click'
+                                            onclick='deleteNotification(this.parentElement.parentElement.parentElement.parentElement)'>
+                                                Reddet
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="follow-notification">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            {% if noti.owner_user.profile_photo %}
+                                <img class='user_photo' src="{{ noti.owner_user.profile_photo.url }}" alt="">
+                            {% else %}
+                                <i class="fa-solid fa-circle-user noti-user"></i>   
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row align-items-center">
+                                <p>
+                                    {{ noti.notification.message}}
+                                </p>
+                                <div  onclick='deleteNotification(this.parentElement.parentElement.parentElement.parentElement)'>
+                                    <i class="fa-solid fa-xmark" 
+                                       id='delete-noti'
+                                       style='font-size:15px;margin-left:10px'
+                                       hx-get="{% url 'mainapp:ignore' noti_id=noti.id %}"
+                                       hx-trigger='click'>
+                                    </i>
+                                </div>
+                            </div>
+                            {% if noti.post_id %}
+                                <a href="{% url 'mainapp:post_detail' pk=noti.post_id.id %}"
+                                    style='color:dodgerblue;'>
+                                    detaylar için tıkla!
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <h1>Yeni bir gelişme yok!</h1>
+{% endif %}
