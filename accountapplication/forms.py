@@ -1,5 +1,5 @@
 from django import forms
-from accountapplication.models import Profile
+from accountapplication.models import Profile, Message
 
 
 class ProfileEditForm(forms.ModelForm):
@@ -9,4 +9,16 @@ class ProfileEditForm(forms.ModelForm):
         labels = {
             "profile_photo": "Profil Fotoğrafı",
             "background_photo": "Arkaplan Fotoğrafı",
+        }
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['content']
+        labels = {
+            "content": "",
+        }
+        widgets = {
+            'content': forms.Textarea(attrs={'rows':1}),
         }
