@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  style %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/message-box.css' %}">
+
+{% endblock  %}
+
+{% block  content %}
+<div class="container m-412">
+    <h1 style='color:rgb(150, 150, 150);text-transform:uppercase;text-align:center;'>Mesaj kutusu</h1>
+    {% for profile in profiles %}
+        <div class="msg-box">
+            <div class="row align-items-center gap-1 m-412" >
+                <div class="col-md-1">
+                    {% if profile.profile_photo %}
+                        <img src="{{ profile.profile_photo.url }}" alt="" class='user-pp'>
+                    {% else %}
+    
+                    {% endif %}
+                </div>
+                <div class="col-md-9">
+                    <p class='user-name'>
+                        {{ profile.user }}
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <a class='direct-button'
+                       href="{% url 'mainapp:message' sender=current_user.id reciever=profile.id %}"
+                    >Mesaj</a>
+                </div>
+            </div>
+        </div>
+        <p style='color:white'>
+            {{ pro }}
+        </p>
+    {% endfor %}
+</div>
+{% endblock  %}
