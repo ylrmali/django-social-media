@@ -11,13 +11,18 @@
                     <a href={% url 'mainapp:home' %}><i class="fa-solid fa-house"></i><span class="nav-text">Home</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href='#'><i class="fa-solid fa-paper-plane"></i><span class="nav-text">Direct</span></a>
+                    <a href="{% url 'mainapp:message_box' current_user=user.id %}"><i class="fa-solid fa-paper-plane"></i><span class="nav-text">Direct</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href='#'><i class="fa-solid fa-heart"></i><span class="nav-text">Actions</span></a>
+                    <a hx-get="{% url 'mainapp:notification' %}"
+                       hx-target='#notis'
+                       hx-trigger='click'>
+                        <i class="fa-solid fa-heart"></i>
+                        <span class="nav-text" id='actions'>Actions</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a href='/explore'><i class="fa-solid fa-compass"></i><span class="nav-text">Explore</span></a>
+                    <a href='/explore'><i class="fa-solid fa-compass"></i><span class="nav-text" id='explore'>Explore</span></a>
                 </li>
                 <li class="nav-item">
                     <a href='#'><i class="fa-solid fa-magnifying-glass"></i><span class="nav-text" id="search">Search</span></a>
@@ -38,6 +43,20 @@
                 </li>
             </ul>
         </div>
+
+        <!-- open notifications -->
+        <div id="notification-menu">
+
+            <div id="notis">
+
+            </div>
+
+            <div class="searchCloseBtn">
+                <i class="fa-solid fa-xmark" onclick="this.parentElement.parentElement.style.display='none'"></i>
+            </div>
+        </div>
+
+
         <!-- open search bar -->
         <div id="search-bar">
             <p style="font-family: 'Chakra Petch', sans-serif;font-size: 30px;color: whitesmoke;text-align: center;">Search</p>
