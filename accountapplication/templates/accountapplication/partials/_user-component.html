@@ -33,7 +33,7 @@
             </li>
             <!-- if user does not follow user dont show follower and following details popup -->
             <li class="d-flex fd-column gap-1" 
-                {% if is_follower %}
+                {% if is_follower or user_data.username == user.username%}
                     hx-get={% url 'get-follower' username=user_data.id %}
                     hx-target='#popUp'
                     hx-trigger='click'
@@ -46,7 +46,7 @@
                 <a >{{ follower_count }}</a>
             </li>
             <li class="d-flex fd-column gap-1"
-                {% if is_follower %}
+                {% if is_follower or user_data.username == user.username%}
                     hx-get={% url 'get-following' username=user_data.id %}
                     hx-target='#popUp'
                     hx-trigger='click' 
@@ -68,10 +68,20 @@
                 {% if is_follower %}
                     <a class="unfollow" href={% url 'mainapp:unfollow' current_user_id=request.user.id target_user_id=user_data.id %}>Takipten Çık</a>
                 {% else %}
-                    <a class="follow" href={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=user_data.id %}>Takip Et</a>
+                <!-- if user profile not locked, don't show follow notification -->
+                    <a class="follow" 
+                       {% if profile_data.is_lock %}
+                            hx-get={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=user_data.id %}
+                            hx-target='#notification'
+                            hx-trigger='click'
+                            onclick="document.getElementById('notification').style.display='flex'"
+                        {% else %}
+                            href={% url 'mainapp:follow' current_user_id=request.user.id target_user_id=user_data.id %}
+                        {% endif %}
+                    >Takip Et</a>
                 {% endif %}
 
-                <a class="message" href="">Mesaj Gönder</a>
+                <a class="message" href="{% url 'mainapp:message' sender=current_user.id reciever=profile_data.id %}">Mesaj Gönder</a>
 
             {% else %}
                 <a hx-get="{% url 'mainapp:edit_profile' user_id=user.id %}" 
@@ -114,5 +124,9 @@
     
     <div id='editPopUp'>
         <!-- edit profile pop up will be here -->
+    </div>
+
+    <div id="notification">
+        <!-- follow notification will be here -->
     </div>
 </div>
