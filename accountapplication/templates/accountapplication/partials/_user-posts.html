@@ -1,12 +1,15 @@
 <div class="row " id="posts">
 
-    {% if user_data.is_lock == False or is_follower or user == user_data%}
+
+    {% if profile_data.is_lock == False or is_follower or user == user_data%}
         {% if  user_post%}
             {% for post in user_post %}
                 <div class="col-md-6">
-                    <a class="post" href="{% url 'mainapp:post_detail' pk=post.id %}">
-                        <img class="post_image" src="{{ post.post_media.url }}" alt="">
-                    </a>
+                    {% if post.post_media %}
+                        <a class="post" href="{% url 'mainapp:post_detail' pk=post.id %}">
+                            <img class="post_image" src="{{ post.post_media.url }}" alt="">
+                        </a>
+                    {% endif %}
                 </div>
             {% endfor %}
         {% else %}
