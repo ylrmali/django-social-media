@@ -19,6 +19,10 @@
                                 <a href="{% url 'profile' user_id=post.1.owner.id %}">
                                     <img class="user_photo"  src="{{ post.0.profile_photo.url }}" alt="" >
                                 </a>
+                            {% else %}
+                                <a href="{% url 'profile' user_id=post.1.owner.id %}">
+                                    <i class="fa-solid fa-circle-user "></i>
+                                </a>
                             {% endif %}
                             <a href="{% url 'profile' user_id=post.1.owner.id %}" class="post_owner">
                                 <p>{{ post.1.owner }}</p>
