@@ -2,9 +2,13 @@
         {% if comments_data %}
             {% for comment in comments_data %}
                     <div class="row align-items-center " style="border-bottom: 1px solid grey">
-                        <a href="{% url 'profile' user_id=comment.0.owner.id%}">
-                            <img  class="user_photo m-412" src="{{ comment.1.profile_photo.url }}" alt="">
-                        </a>
+                        {% if comment.1.profile_photo %}
+                            <a href="{% url 'profile' user_id=comment.0.owner.id%}">
+                                <img  class="user_photo m-412" src="{{ comment.1.profile_photo.url }}" alt="">
+                            </a> 
+                        {% else %}
+                            <i class="fa-solid fa-circle-user noti-user"></i>
+                        {% endif %}
                         <div class="d-flex fd-column">
                             <p class="username" style="color: white;margin-bottom: 10px">
                                 <a href="{% url 'profile' user_id=comment.0.owner.id%}"
