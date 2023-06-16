@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'accountapplication/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/message.css' %}">
+
+{% endblock  %}
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="msg-header">
+            <div class="row align-items-center m-812">
+                <a href="{% url 'mainapp:message_box' current_user=sender.id %}" class="back-button">
+                    <i class="fa-solid fa-arrow-left" style='color:white'></i>
+                </a>
+                
+                <div class='user-data align-items-center'>
+                    {% if reciever.profile_photo %}
+                    <img src="{{ reciever.profile_photo.url }}" alt="" class='reciever-photo'>
+                    {% else %}
+                    <!-- user icon -->
+                    {% endif %}
+                    
+                    <p class='reciever-user' style='color:white'>
+                        {{ reciever.user }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="message-box">
+            {% for msg in messages %}
+                {% if  msg.sender == reciever %}
+                    <div class="row" >
+                        <div class="box reciever-box">
+                            <p class"reciever-msg">
+                                {{ msg.content }}
+                            </p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="row" style='justify-content:end'>
+                        <div class="box sender-box">
+                            <p class"sender-msg"> 
+                                {{ msg.content }}
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        <div class='message-form'>
+            <form action="{% url 'mainapp:message' sender=sender.id reciever=reciever.id %}" method='POST'>
+                <div class="row gap-3">
+                    {% csrf_token %}
+                    <div class='input'>
+                        {{ form.as_div }}
+                    </div>
+                    <button class='send-button' type='submit'>
+                        <i class="fa-solid fa-paper-plane" style='color:whit;margin:10px'></i>
+                    </button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+{% endblock  %}
