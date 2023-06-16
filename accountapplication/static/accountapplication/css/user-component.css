@@ -18,6 +18,9 @@
 .background-photo{
     width: 100%;
     position: relative;
+    min-height: 200px;
+    max-height: 200px;
+    object-fit: cover;
 }
 
 .user-photo{
@@ -177,4 +180,20 @@ form p input[type='file']{
     background-color: rgb(85, 163, 241);
     color: white;
     cursor: pointer;
+}
+
+/* follow notification */
+#notification{
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    width: 60%;
+    transform: translate(-50%);
+    border: 1px solid darkgreen;
+    border-radius: 5px;
+    background-color: rgba(0, 128, 0, 0.5);
+    padding: 0 30px;
+    display: none;
+    color: white;
+    justify-content: space-between;
 }
