@@ -56,6 +56,20 @@ nav{
     font-weight: lighter;
 }
 
+#notification-menu{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    /* right: 204px; */
+    max-width: 300px;
+    min-width: 300px;
+    background-color: #1e1e1e;
+    padding: 60px;
+    border: 1px solid rgba(164, 179, 190, 0.2);
+    color: white;
+}
+
 #search-bar{
     display: none;
     position: fixed;
@@ -66,7 +80,6 @@ nav{
     background-color: #1e1e1e;
     padding: 60px;
     border: 1px solid rgba(164, 179, 190, 0.2);
-
 }
 
 .searchCloseBtn .fa-xmark{
@@ -200,4 +213,73 @@ input[type="search"]::-webkit-search-cancel-button {
     #hamburger{
         display: none;
     }
+}
+
+/* notifications */
+
+#checkbox {
+    /* Hide the default checkbox */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 10px;
+    height: 10px;
+    border: 0.5px solid #999;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* Style the custom checkbox when checked */
+  #checkbox:checked::before {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #c08a26; /* Set the desired color */
+    border-radius: 2px;
+    margin: 1px;
+  }
+
+.accept_button{
+    background-color: rgb(46, 139, 231);
+    border: 0;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 10px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.ignore_button{
+    background-color: rgb(231, 46, 46);
+    border: 0;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.noti-user{
+    font-size: 48px;
+}
+
+.re_follow_button{
+    background-color: rgb(214, 214, 214);
+    border: 0;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px 10px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
