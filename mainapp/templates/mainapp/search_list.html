@@ -1,19 +1,20 @@
 {% load static %}
 
 {% for user in users %}
-<h1></h1>
-    <div class='user_box'>
-        <div class='row align-items-center gap-3'>
-            <div class="col-md-3">
-                {% if user.1 == '' %}
-                    <i class="fa-solid fa-circle-user search-user-icon"></i>
-                {% else %}
-                    <img src="/media/{{user.1}}" alt="" class='small-photo' onclick="userProfile({{user.0.id}})">
-                {% endif %}
-            </div> 
-            <div class='col-md-9'>
-                <h1 class='username' onclick="userProfile({{user.0.id}})" >{{user.0.username}}</h1>
+    {% if user.0.username != 'admin' %}
+        <div class='user_box'>
+            <div class='row align-items-center gap-3'>
+                <div class="col-md-3">
+                    {% if user.1 == '' %}
+                        <i class="fa-solid fa-circle-user search-user-icon"></i>
+                    {% else %}
+                        <img src="/media/{{user.1}}" alt="" class='small-photo' onclick="userProfile({{user.0.id}})">
+                    {% endif %}
+                </div> 
+                <div class='col-md-9'>
+                    <h1 class='username' onclick="userProfile({{user.0.id}})" >{{user.0.username}}</h1>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endfor %}
