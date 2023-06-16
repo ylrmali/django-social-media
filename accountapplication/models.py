@@ -64,3 +64,24 @@ class Comment(models.Model):
     like_owner = models.ManyToManyField(User, related_name='likeOwner')
     created_time = models.DateTimeField(auto_now_add=True)
 
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, related_name='notification_user', on_delete=models.CASCADE)
+    owner_user = models.ForeignKey(Profile, related_name='owner_user', on_delete=models.CASCADE)
+    type = models.BooleanField(null=False)
+    notification = models.JSONField()
+    is_read = models.BooleanField(default=False)
+    is_visible = models.BooleanField(default=True)
+    is_comment = models.BooleanField(default=False)
+    post_id = models.ForeignKey(Post, related_name='noti_post', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user}s Notification'
+    
+
+class Message(models.Model):
+    sender = models.ForeignKey(Profile, related_name='msg_sender', on_delete=models.CASCADE)
+    reciever = models.ForeignKey(Profile, related_name='msg_reciever', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    content = models.CharField(max_length=5000)
+ 
