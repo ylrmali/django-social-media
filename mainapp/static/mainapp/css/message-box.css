@@ -1,0 +1,25 @@
+
+.user-pp{
+    max-width: 64px;
+    min-width: 64px;
+    border-radius: 100%;
+}
+
+.user-name{
+    color: white;
+    font-size: 30px;
+}
+
+.msg-box{
+    border: 1px solid rgb(92, 92, 92);
+}
+
+
+.direct-button{
+    color: white;
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+    padding: 5px 20px;
+    background-color: rgba(41, 144, 247, 0.671);
+    text-decoration: none;
+}

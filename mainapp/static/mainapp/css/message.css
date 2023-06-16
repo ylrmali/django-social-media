@@ -1,0 +1,86 @@
+
+.msg-header{
+    border-bottom: 1px solid rgba(102, 102, 102, 0.705);
+}
+
+
+.user-data{
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+}
+
+
+.reciever-photo{
+    min-width: 54px;
+    max-height: 54px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.reciever-user{
+    font-size: 20px;
+}
+
+/* message box styles */
+.message-box{
+    min-height: 790px;
+    max-height: 790px;
+    overflow: auto;
+    border-bottom: 1px solid rgba(102, 102, 102, 0.705);
+    padding: 10px;
+}
+
+.input{
+    width: 100%;
+}
+
+#id_content{
+    width: 99%;
+    font-size: 20px;
+    padding: 10px;
+    border: 1px dashed gray;
+    background-color: rgba(92, 92, 92, 0.5);
+    color: white;
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+#id_content:focus{
+    outline: none;
+}
+
+.send-button{
+    border-radius: 100%;
+    border: 0;
+    background-color: dodgerblue;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.box{
+    padding: 0 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.sender-box{
+    background-color: rgb(70, 143, 21);
+    color: white;
+}
+
+.reciever-box{
+    background-color: rgba(245, 245, 245, 0.658);
+    color: black;
+}
+
+.sender-msg{
+    float: right;
+}
+
+.reciever-msg{
+    float: left;
+}
