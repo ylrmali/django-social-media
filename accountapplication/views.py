@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
 from accountapplication.models import User, Post, Profile
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
 
 # home page
+@login_required
 def index(request):
     target_user = Profile.objects.get(user=1)  # target user / who's profile will load
     id = Profile.objects.get(user='asd').id  # target user id
@@ -21,10 +23,12 @@ def index(request):
 
 
 # user profile page
+@login_required
 def profile(request, user_id):
     try:
         user = User.objects.get(id=user_id)
         target_user = Profile.objects.get(user=user_id)   # target user / who's profile will load
+        current_user = Profile.objects.get(user=request.user.id)
         id = Profile.objects.get(user=user_id).id       # target user id
         posts = Post.objects.filter(owner_id=user_id)               # target user's posts
         post_count = posts.count()                          # target user's post count
@@ -35,6 +39,7 @@ def profile(request, user_id):
         context = {
             'user_data': user,
             'profile_data': target_user,
+            'current_user': current_user,
             'user_post': posts,
             'post_count': post_count,
             'follower_count': follower_count,
@@ -50,6 +55,7 @@ def profile(request, user_id):
     
 
 
+@login_required
 def get_follower(request, username):
     target_user = Profile.objects.get(user=username)  # target user / who's profile will load
     id = Profile.objects.get(user=username).id        # target user id
@@ -73,8 +79,8 @@ def get_follower(request, username):
     return render(request, 'accountapplication/partials/_user_followers.html', context)
 
 
+@login_required
 def get_following(request, username):
-    print(username);
     target_user = Profile.objects.get(user=username)  # target user / who's profile will load
     id = Profile.objects.get(user=username).id        # target user id
     posts = Post.objects.filter(owner=id)              # target user's posts
@@ -84,7 +90,6 @@ def get_following(request, username):
     # is the current user following the target user?
     tu_is_follower = target_user.follower.filter(username=request.user).exists()  # is current user a follower?
     follower = target_user.get_following()
-    print(follower);
     followings = list(target_user.following.values('id', 'username', 'first_name', 'last_name'))
     context = {
         'user_data': target_user,
