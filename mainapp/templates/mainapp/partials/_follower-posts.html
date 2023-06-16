@@ -4,19 +4,23 @@
         <!-- user photo and username -->
         <div class="post-header">
             <div class="row gap-1 m-412 align-items-center">
-                {% if post.owner.profile_photo %}
-                    <img class="user_photo"  src="{{ post.owner.profile_photo.url }}" alt="" >
+                {% if post.1.profile_photo %}
+                    <a href="{% url 'profile' user_id=post.1.id %}">
+                        <img class="user_photo"  src="{{ post.1.profile_photo.url }}" alt="" >
+                    </a>
+                {% else %}
+                    <i class="fa-solid fa-circle-user noti-user"></i>
                 {% endif %}
-                <a href="" class="post_owner">
-                    <p  style="color:white;">{{ post.owner }}</p>
+                <a href="{% url 'profile' user_id=post.1.id %}" class="post_owner">
+                    <p  style="color:white;">{{ post.1.user }}</p>
                 </a>
             </div>
         </div>
         <!-- post content (image or text) -->
         <div class="post-body mb-3">
             <!-- post image -->
-            {% if post.post_media %}
-                <img src="{{ post.post_media.url }}" style="width: 100%;" alt="post_image">
+            {% if post.0.post_media %}
+                <img src="{{ post.0.post_media.url }}" style="width: 100%;" alt="post_image">
             {% endif %}
             <!-- post action section ( like-comment-share) -->
             <div class="post-action">
@@ -24,31 +28,31 @@
                     <!-- like button -->
                     <div class="like" id="like">
                         <!-- like click event -->
-                        <div hx-get="{% url 'mainapp:like_control' post_id=post.id user_id=user.id %}"
-                             hx-trigger="every 0.5s"
-                             hx-target="#likeIcon-{{ post.id }}"
+                        <div hx-get="{% url 'mainapp:like_control' post_id=post.0.id user_id=user.id %}"
+                             hx-trigger="click"
+                             hx-target="#likeIcon-{{ post.0.id }}"
                              hx-swap="innerHTML">
                         </div>
 
                         <!-- like control -->
-                        <div hx-get="{% url 'mainapp:like_control' post_id=post.id user_id=user.id %}"
+                        <div hx-get="{% url 'mainapp:like_control' post_id=post.0.id user_id=user.id %}"
                              hx-trigger="load"
-                             hx-target="#likeIcon-{{ post.id }}"
+                             hx-target="#likeIcon-{{ post.0.id }}"
                              hx-swap="innerHTML">
                         </div>
 
                         <!-- when user click like button -> like function will be work -->
-                        <a hx-get="{% url 'mainapp:like' post.id %}"
+                        <a hx-get="{% url 'mainapp:like' post.0.id %}"
                            hx-trigger="click"
-                           hx-target="#like_count-{{ post.id }}"
+                           hx-target="#like_count-{{ post.0.id }}"
                            id="like">
 {#                             <i class="fa-regular fa-heart action-icon" id="likeIcon-{{ post.id }}"></i>#}
-                            <div id="likeIcon-{{ post.id }}"></div>
+                            <div id="likeIcon-{{ post.0.id }}"></div>
                         </a>
                     </div>
                     <!-- comment button -->
                     <div class="comment">
-                        <a href="{% url 'mainapp:post_detail' post.id %}">
+                        <a href="{% url 'mainapp:post_detail' post.0.id %}">
                             <i class="fa-regular fa-comment action-icon"></i>
                         </a>
                     </div>
@@ -61,26 +65,26 @@
 
             <!-- post like count -->
             <div class="like-count m-812">
-                <p style="color: white"> <span id="like_count-{{ post.id }}">{{ post.like_owner.count }}</span> likes</p>
+                <p style="color: white"> <span id="like_count-{{ post.0.id }}">{{ post.0.like_owner.count }}</span> likes</p>
             </div>
 
             <!-- post text -->
             <p class="text m-812" style="color:white;">
-                <a href="" class="username_link " style="color: white;">{{ post.owner }}</a>
-                {{ post.post_text }}
+                <a href="" class="username_link " style="color: white;">{{ post.0.owner }}</a>
+                {{ post.0.post_text }}
             </p>
 
             <!-- comment count -->
             <div class="comment-count m-812">
-                    <div hx-get="{% url 'mainapp:post_comment' post.id %}"
+                    <div hx-get="{% url 'mainapp:post_comment' post.0.id %}"
                          hx-trigger="load"
-                         hx-target="#comment-{{ post.id }}"
+                         hx-target="#comment-{{ post.0.id }}"
                          hx-swap="innerHTML">
                     </div>
                     <div class="comment_count">
-                        <a href="{% url 'mainapp:post_detail' post.id %}"
+                        <a href="{% url 'mainapp:post_detail' post.0.id %}"
                            style="color: #a2a2a2;margin: 0;text-decoration: none;">
-                            <span id="comment-{{ post.id }}"></span> comments...
+                            <span id="comment-{{ post.0.id }}"></span> comments...
                         </a>
                     </div>
             </div>
