@@ -19,5 +19,11 @@ urlpatterns = [
     path('comment_like_control/<int:comment_id>/', comment_like_control, name='comment_like_control'),
     path('search/<str:argument>/', search, name='search'),
     path('edit/<int:user_id>/', profile_edit, name='edit_profile'),
+    path('notification/', notification, name='notification'),
+    path('ignore/<int:noti_id>/', ignore_follower, name='ignore'),
+    path('accept/<int:current_user_id>/<int:target_user_id>/<int:noti_id>/', accept_follower, name='accept'),
+    path('refollow/<int:current_user_id>/<int:target_user_id>/<int:noti_id>/', refollow, name='refollow'),
+    path('message/<int:sender>/<int:reciever>/', message, name='message'),
+    path('message-box/<int:current_user>/', message_box, name='message_box'),
 ]
 
